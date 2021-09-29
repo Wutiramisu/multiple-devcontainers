@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  client:
+    image: node:16
+    volumes:
+      - workspace-data:/workspace
+      - client-node_modules:/workspace/client/node_modules
+    container_name: client
+    ports:
+      - 3000:3000
+    stdin_open: true
+
+  server:
+    image: node:16
+    volumes:
+      - workspace-data:/workspace
+      - server-node_modules:/workspace/server/node_modules
+    container_name: server
+    ports:
+      - 8080:8080
+    stdin_open: true
+
+volumes:
+  workspace-data:
+    driver: local
+    driver_opts:
+        type: "none"
+        o: "bind"
+        device: "../"
+  client-node_modules:
+  server-node_modules:
